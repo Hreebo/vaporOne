@@ -33,17 +33,22 @@ public func routes(_ router: Router) throws {
         
     }
     
+    /*
     //POST
     router.post("api","acronyms") { req -> Future<Acronym> in
-        return try req.content.decode(Acronym.self).flatMap(to: Acronym.self) { acronym in
+        return try req.content
+            .decode(Acronym.self)
+            .flatMap(to: Acronym.self) { acronym in
             return acronym.save(on: req)
         }
     }
     
     //GET All
+    /*
     router.get("api","acronyms") { req -> Future<[Acronym]> in
         return Acronym.query(on: req).all()
     }
+ */
     
     //GET by ID
     router.get("api", "acronyms", Acronym.parameter) { req  -> Future<Acronym> in
@@ -99,6 +104,10 @@ public func routes(_ router: Router) throws {
                     .sort(\.short, .ascending)
                     .all()
     }
+    */
+    
+    let acronymsController = AcronymController()
+    try router.register(collection: acronymsController)
 }
 
 struct InfoData: Content {
