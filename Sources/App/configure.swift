@@ -31,9 +31,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(database)
     
     var migrations = MigrationConfig()
-    migrations.add(model: Acronym.self, database: .psql)
     migrations.add(model: User.self, database: .psql)
+    migrations.add(model: Acronym.self, database: .psql)
     services.register(migrations)
+    
+    //Cloud DB wipe
+    var commandConfig = CommandConfig.default()
+    commandConfig.use(RevertCommand.self, as: "revert")
+    services.register(commandConfig)
+    
     /*
     /// Register providers first
     try services.register(FluentSQLiteProvider())

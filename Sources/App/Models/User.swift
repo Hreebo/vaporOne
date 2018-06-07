@@ -2,6 +2,9 @@ import Foundation
 import Vapor
 import FluentPostgreSQL
 
+// Lukas user ID: 
+//  0C612400-92D3-42BD-B72B-A41E08F4CE3B
+
 final class User: Codable {
     var id: UUID?
     var name: String
@@ -18,4 +21,9 @@ extension User: Content {}
 extension User: Migration {}
 extension User: Parameter {}
 
+extension User {
+    var acronyms: Children<User, Acronym> {
+        return children(\.userID)
+    }
+}
 
