@@ -23,7 +23,7 @@ public func routes(_ router: Router) throws {
         return "yourn \(number) + 10 is \(count)"
         
     }
-    
+    /*
     router.post(InfoData.self, at: "info") { req, data -> String in
         return "Hello \(data.name)"
     }
@@ -33,7 +33,7 @@ public func routes(_ router: Router) throws {
         
     }
     
-    /*
+    
     //POST
     router.post("api","acronyms") { req -> Future<Acronym> in
         return try req.content
@@ -108,6 +108,9 @@ public func routes(_ router: Router) throws {
     
     let acronymsController = AcronymController()
     try router.register(collection: acronymsController)
+    
+    let usersController = UsersController()
+    try router.register(collection: usersController)
 }
 
 struct InfoData: Content {
