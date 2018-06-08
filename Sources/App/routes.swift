@@ -106,6 +106,9 @@ public func routes(_ router: Router) throws {
     }
     */
     
+    let categoriesControoler = CategoriesController()
+    try router.register(collection: categoriesControoler)
+    
     let acronymsController = AcronymController()
     try router.register(collection: acronymsController)
     
