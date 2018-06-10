@@ -6,7 +6,7 @@ public func routes(_ router: Router) throws {
     // Basic "Hello, world!" example
     router.get("hello") { req -> String in
         
-        return "Hello You Motherfucker and ape sucker..."
+        return "<h1>Vapor 3 test API - Acronyms </h1>"
         
     }
     
