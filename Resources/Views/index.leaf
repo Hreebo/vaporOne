@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title> #(title) | API World</title>
-</head>
-
-<body>
+#set("content") {
+  <img src="/images/logo.png" class="mx-auto d-block" alt="TIL Logo" />
     <h1>Acronyms</h1>
     #if(acronyms) {
-    <table>
-      <thead>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
         <tr>
           <th>Short</th>
           <th>Long</th>
@@ -28,7 +22,6 @@
 } else {
   <h2>There arent any acronyms yet!</h2>
 }
-</body>
+}
 
-
-</html>
+#embed("base")
