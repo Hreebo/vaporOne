@@ -30,11 +30,11 @@ struct AcronymController: RouteCollection {
     
     func addCategoriesHandler(_ req: Request) throws -> Future<HTTPStatus> {
         return try flatMap(to: HTTPStatus.self,
-                                req.parameters.next(Acronym.self),
-                                req.parameters.next(Category.self)) { acronym, category in
-                                    let pivot = try AcronymCategoryPivot(acronym.requireID(), category.requireID())
-                                    return pivot.save(on: req).transform(to: .created)
-                                    
+                           req.parameters.next(Acronym.self),
+                           req.parameters.next(Category.self)) { acronym, category in
+                            let pivot = try AcronymCategoryPivot(acronym.requireID(), category.requireID())
+                            return pivot.save(on: req).transform(to: .created)
+                            
         }
     }
     
@@ -62,11 +62,11 @@ struct AcronymController: RouteCollection {
         return try flatMap(to: Acronym.self,
                            req.parameters.next(Acronym.self),
                            req.content.decode(Acronym.self)) {
-                                acronym, updatedAcronym in
-                                acronym.short = updatedAcronym.short
-                                acronym.long = updatedAcronym.long
-                                acronym.userID = updatedAcronym.userID
-                                return acronym.save(on: req)
+                            acronym, updatedAcronym in
+                            acronym.short = updatedAcronym.short
+                            acronym.long = updatedAcronym.long
+                            acronym.userID = updatedAcronym.userID
+                            return acronym.save(on: req)
         }
     }
     
@@ -81,7 +81,7 @@ struct AcronymController: RouteCollection {
         guard let searchTerm = req.query[String.self, at: "term"] else {
             throw Abort(.badRequest)
         }
-    
+        
         return try Acronym.query(on: req).group(.or) { or in
             try or.filter(\.short == searchTerm)
             try or.filter(\.long == searchTerm)
@@ -99,8 +99,8 @@ struct AcronymController: RouteCollection {
     
     func sortedHandler(_ req: Request) throws -> Future<[Acronym]> {
         return try Acronym.query(on: req)
-                .sort(\.short, .ascending)
-                .all()
+            .sort(\.short, .ascending)
+            .all()
     }
     
     
