@@ -2,12 +2,14 @@ import FluentPostgreSQL
 import Fluent
 import Vapor
 import Leaf
+import Authentication
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     
     try services.register(FluentPostgreSQLProvider())
     try services.register(LeafProvider())
+    try services.register(AuthenticationProvider())
     
     let router = EngineRouter.default()
     try routes(router)
@@ -15,6 +17,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     var middlewares = MiddlewareConfig()
     middlewares.use(ErrorMiddleware.self)
+    middlewares.use(SessionsMiddleware.self)
     middlewares.use(FileMiddleware.self)
     services.register(middlewares)
     
@@ -38,6 +41,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Acronym.self, database: .psql)
     migrations.add(model: Category.self, database: .psql)
     migrations.add(model: AcronymCategoryPivot.self, database: .psql)
+    migrations.add(model: Token.self, database: .psql)
+    migrations.add(migration: AdminUser.self, database: .psql)
     services.register(migrations)
     
     //Cloud DB wipe
@@ -46,6 +51,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(commandConfig)
     
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
+    config.prefer(MemoryKeyedCache.self, for: KeyedCache.self)
     
     /*
     /// Register providers first
