@@ -42,6 +42,12 @@ HIipfSYbpCkh5/1V87AWAeR5SUrNiewznrUrtNz1ux4uneLhsAKzv/0FnMbj3m6g"crossorigin="an
           <li class="nav-item #if(title == "Create An Category"){active}">
             <a href="/acronyms/create/" class="nav-link">Create An Category</a>
           </li>
+          #if(!userLoggedIn) {
+            <li class="nav-item #if(title == "Register"){active>}">
+              <a href="/register" class="nav-link">Register</a>
+            </li>
+          }
+
         </ul>
 
         #if(userLoggedIn) {
